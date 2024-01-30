@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ETicaret.Persistance.Migrations
 {
     [DbContext(typeof(ETicaretDbContext))]
-    [Migration("20240130065133_mig_initialize")]
+    [Migration("20240130072643_mig_initialize")]
     partial class mig_initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,10 +1,14 @@
 
 
 using ETicaret.Persistance;
+using ETicaret.Persistance.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistanceServices();
+builder.Services.AddDbContext<ETicaretDbContext>(opt => 
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 builder.Services.AddControllers();
 

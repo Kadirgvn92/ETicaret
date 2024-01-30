@@ -14,6 +14,6 @@ public static class ServiceRegistration
 {
     public static void AddPersistanceServices(this IServiceCollection services)
     {
-        services.AddDbContext<ETicaretDbContext>(opt => opt.UseNpgsql("User ID=postgres;Password=142314;Host=localhost;Port=5432;Database=ETicaretDb;"));
+       
     }
 }
