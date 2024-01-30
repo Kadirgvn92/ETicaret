@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistanceServices();
 builder.Services.AddDbContext<ETicaretDbContext>(opt => 
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")), ServiceLifetime.Singleton);
 
 builder.Services.AddControllers();
 
