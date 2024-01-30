@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace ETicaret.Application.Repositories;
 public interface IReadRepository<T> : IRepository<T> where T : BaseEntity
 {
-    IQueryable<T> GetAll();
-    IQueryable<T> GetWhere(Expression<Func<T,bool>> method);
-    Task<T> GetSingleAsync(Expression<Func<T,bool>> method);
-    Task<T> GetByIDAsync(string id);
+    IQueryable<T> GetAll(bool tracking = true); //bool tracking işlemi ef tracking optimizasyonu amacıyla yazdık
+    IQueryable<T> GetWhere(Expression<Func<T,bool>> method, bool tracking = true);
+    Task<T> GetSingleAsync(Expression<Func<T,bool>> method, bool tracking = true);
+    Task<T> GetByIDAsync(string id, bool tracking = true);
 }

@@ -55,4 +55,5 @@ public class ProductsController : ControllerBase
         Product product = await _productReadRepository.GetByIDAsync(id);
         return Ok(product);
     }
+
 }
