@@ -11,49 +11,25 @@ public class ProductsController : ControllerBase
     private readonly IProductWriteRepository _productWriteService;
     private readonly IProductReadRepository _productReadRepository;
 
-    public ProductsController(IProductWriteRepository productWriteService, IProductReadRepository productReadRepository)
+    private readonly IOrderWriteRepository _orderWriteService;
+    private readonly ICustomerWriteRepository _customerWriteService;
+    private readonly IOrderReadRepository _orderReadRepository;
+
+    public ProductsController(IProductWriteRepository productWriteService, IProductReadRepository productReadRepository, IOrderWriteRepository orderWriteService, ICustomerWriteRepository customerWriteService, IOrderReadRepository orderReadRepository)
     {
         _productWriteService = productWriteService;
         _productReadRepository = productReadRepository;
+        _orderWriteService = orderWriteService;
+        _customerWriteService = customerWriteService;
+        _orderReadRepository = orderReadRepository;
     }
 
     [HttpGet]
     public async Task Get()
     {
-       await _productWriteService.AddRangeAsync(new()
-        {
-            new ()
-            {
-                ID = Guid.NewGuid(),
-                Name = "Product1",
-                Stock = 10,
-                Price = 1100,
-                CreatedDate = DateTime.UtcNow
-            },
-             new ()
-            {
-                ID = Guid.NewGuid(),
-                Name = "Product1",
-                Stock = 10,
-                Price = 1100,
-                CreatedDate = DateTime.UtcNow
-            },
-              new ()
-            {
-                ID = Guid.NewGuid(),
-                Name = "Product1",
-                Stock = 10,
-                Price = 1100,
-                CreatedDate = DateTime.UtcNow
-            }
-        });
-        await _productWriteService.SaveAsync();
-    }
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Get(string id)
-    {
-        Product product = await _productReadRepository.GetByIDAsync(id);
-        return Ok(product);
+        Order order = await _orderReadRepository.GetByIDAsync("19e6f853-8d89-4c67-9976-5b71fb6bb1ea");
+        order.Address = "İstanbul";
+        await _orderWriteService.SaveAsync();
     }
 
 }

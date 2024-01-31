@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ETicaret.Persistance.Migrations
 {
     [DbContext(typeof(ETicaretDbContext))]
-    [Migration("20240130072643_mig_initialize")]
+    [Migration("20240131072020_mig_initialize")]
     partial class mig_initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,9 @@ namespace ETicaret.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("ID");
 
                     b.ToTable("Customers");
@@ -55,16 +58,19 @@ namespace ETicaret.Persistance.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CustomersID")
+                    b.Property<Guid>("CustomerID")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("CustomersID");
+                    b.HasIndex("CustomerID");
 
                     b.ToTable("Orders");
                 });
@@ -82,11 +88,14 @@ namespace ETicaret.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("Price")
-                        .HasColumnType("bigint");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("ID");
 
@@ -112,7 +121,7 @@ namespace ETicaret.Persistance.Migrations
                 {
                     b.HasOne("ETicaret.Domain.Entities.Customer", "Customers")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomersID")
+                        .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
